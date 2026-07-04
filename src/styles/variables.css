@@ -1,0 +1,61 @@
+:root {
+    --bg-main: #090d16;
+    --bg-surface: #121824;
+    --bg-surface-elevated: #1e2640;
+    --border-color: #242f4c;
+    
+    --text-main: #ffffff;
+    --text-muted: #94a3b8;
+    --text-disabled: #475569;
+    
+    --primary-usa: #1e40af;
+    --primary-usa-hover: #1d4ed8;
+    --accent-mex: #047857;
+    --accent-mex-hover: #059669;
+    --accent-can: #be123c;
+    --accent-can-hover: #e11d48;
+    
+    --brand-gold: #f59e0b;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --info: #0ea5e9;
+    --live-dot: #ef4444;
+
+    --z-default: 1;
+    --z-sticky: 100;
+    --z-navigation: 500;
+    --z-dropdown: 600;
+    --z-backdrop: 800;
+    --z-modal: 900;
+    --z-toast: 1000;
+    --z-tooltip: 1100;
+
+    --font-display: 'Barlow Condensed', 'Oswald', sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 2rem;
+    
+    --focus-ring: 2px solid var(--brand-gold);
+    --focus-ring-offset: 2px;
+    --accessibility-outline: 2px dashed #38bdf8;
+    
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --radius-full: 9999px;
+    
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
