@@ -10,6 +10,7 @@ interface AuthState {
 interface AuthActions {
   readonly setAuth: (user: UserProfile, token: string) => void;
   readonly logout: () => void;
+  readonly hydrate: () => Promise<void>;
 }
 
 const TOKEN_KEY = 'kickoff_club_jwt_token';
@@ -61,6 +62,35 @@ export const useAuthStore = create<AuthState & AuthActions>((set) => ({
       set({ user: null, token: null, isAuthenticated: false });
     } catch (error) {
       console.error('Error al limpiar la sesión:', error);
+    }
+  },
+
+  hydrate: async (): Promise<void> => {
+    const token = localStorage.getItem(TOKEN_KEY);
+    const userJson = localStorage.getItem(USER_KEY);
+
+    if (!token || !userJson) {
+      localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(USER_KEY);
+      set({ user: null, token: null, isAuthenticated: false });
+      return;
+    }
+
+    try {
+      const { apiClient } = await import('./api/apiClient');
+      const { API_ROUTES } = await import('./api/routes');
+
+      const user = await apiClient<UserProfile>(API_ROUTES.users.me, {
+        method: 'GET',
+      });
+
+      localStorage.setItem(USER_KEY, JSON.stringify(user));
+      set({ user, token, isAuthenticated: true });
+    } catch (error: unknown) {
+      console.error('Error durante la hidratación de sesión:', error);
+      localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(USER_KEY);
+      set({ user: null, token: null, isAuthenticated: false });
     }
   },
 }));

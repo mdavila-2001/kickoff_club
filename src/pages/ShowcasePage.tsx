@@ -10,6 +10,7 @@ import { getFlagUrl, getFifaCode } from '../services/teamCodes';
 import { Table } from '../components/atoms/Table/Table';
 import type { ColumnConfig } from '../components/atoms/Table/Table';
 import { Skeleton } from '../components/atoms/Skeleton/Skeleton';
+import { Modal } from '../components/atoms/Modal/Modal';
 import { FormField } from '../components/molecules/FormField/FormField';
 import { MatchRow, type MatchDTO } from '../components/molecules/MatchRow/MatchRow';
 import { MatchCard, type MatchDTO as CardMatchDTO } from '../components/molecules/MatchCard/MatchCard';
@@ -181,6 +182,7 @@ const formSchema = z.object({
 export const ShowcasePage: React.FC = () => {
   const [role, setRole] = useState('user');
   const [standaloneChecked, setStandaloneChecked] = useState(false);
+  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
 
   // Estados para demostración del FormField y validación Zod
   const [formData, setFormData] = useState({ username: '', email: '', age: '' });
@@ -1457,6 +1459,63 @@ export const ShowcasePage: React.FC = () => {
               <PredictionSummary stats={null} />
             </div>
           </div>
+        </section>
+
+        <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--font-size-xl)', color: 'var(--text-main)', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem' }}>
+            Componente: Modal (Átomo/Portal Global)
+          </h2>
+
+          <div>
+            <h3 style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
+              Demostración de Portales React y Focus Trapping Accesible (WAI-ARIA)
+            </h3>
+            <Button variant="gold" onClick={() => setIsDemoModalOpen(true)}>
+              Abrir Modal Accesible
+            </Button>
+          </div>
+
+          <Modal
+            isOpen={isDemoModalOpen}
+            onClose={() => setIsDemoModalOpen(false)}
+            title="Demostración de Modal Accesible"
+          >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              <p style={{ margin: 0, color: 'var(--text-muted)' }}>
+                Este modal está inyectado directamente en <code>#modal-root</code> de <code>document.body</code> usando React Portals para evitar cualquier tipo de recorte de overflow o conflicto de z-index.
+              </p>
+              <p style={{ margin: 0, color: 'var(--text-muted)' }}>
+                <strong>Accesibilidad (WCAG 2.1 AA)</strong>: El scroll de fondo se ha deshabilitado. Prueba presionar la tecla <code>Tab</code> o <code>Shift + Tab</code>: verás que el foco se mantiene atrapado dentro del modal. Al presionar <code>Escape</code>, se ejecutará el cierre del modal de forma segura.
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <label htmlFor="modal-demo-input" style={{ fontSize: 'var(--font-size-xs)', color: 'var(--text-muted)', fontWeight: 600 }}>
+                  Campo de Prueba de Foco
+                </label>
+                <input
+                  id="modal-demo-input"
+                  type="text"
+                  placeholder="Escribe algo aquí..."
+                  style={{
+                    backgroundColor: 'var(--surface-input, #1f2937)',
+                    border: '1px solid var(--border-color)',
+                    color: 'var(--text-main)',
+                    padding: '0.5rem 0.75rem',
+                    borderRadius: 'var(--radius-sm, 4px)',
+                    fontFamily: 'inherit',
+                    fontSize: 'var(--font-size-sm)',
+                  }}
+                />
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '0.5rem' }}>
+                <Button variant="secondary" onClick={() => setIsDemoModalOpen(false)}>
+                  Cancelar
+                </Button>
+                <Button variant="gold" onClick={() => setIsDemoModalOpen(false)}>
+                  Aceptar
+                </Button>
+              </div>
+            </div>
+          </Modal>
         </section>
       </main>
     </div>

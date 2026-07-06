@@ -1,0 +1,168 @@
+.registerRoot {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--bg-main);
+}
+
+/* ── Panel izquierdo: branding ──────────────────────────── */
+.brandPanel {
+  position: relative;
+  display: none;
+  flex: 3;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--bg-main);
+}
+
+.brandImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.35;
+}
+
+.dotPattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.gradientOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(11, 13, 22, 0.55) 0%,
+    rgba(18, 24, 36, 0.35) 50%,
+    rgba(11, 13, 22, 0.9) 100%
+  );
+}
+
+.brandContent {
+  position: relative;
+  z-index: var(--z-base);
+  max-width: 32rem;
+  padding: var(--space-lg);
+  text-align: center;
+}
+
+.wordmark {
+  display: inline-block;
+  margin-bottom: var(--space-lg);
+  padding: var(--space-xs) var(--space-md);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-main);
+  background-color: rgba(18, 24, 36, 0.6);
+}
+
+.brandTitle {
+  margin-bottom: var(--space-md);
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--text-main);
+}
+
+.brandSubtitle {
+  font-size: var(--font-size-lg);
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* ── Panel derecho: formulario ──────────────────────────── */
+.formPanel {
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding: clamp(2rem, 6vw, 5rem);
+  overflow-y: auto;
+  background-color: var(--bg-surface);
+  box-shadow: var(--shadow-lg);
+}
+
+.formHeader {
+  margin-bottom: var(--space-lg);
+}
+
+.formTitle {
+  margin-bottom: var(--space-xs);
+  font-family: var(--font-display);
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.formSubtitle {
+  font-size: var(--font-size-md);
+  color: var(--text-muted);
+}
+
+.registerForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.nameRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+@media (max-width: 480px) {
+  .nameRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Contraseña y confirmación ──────────────────────────── */
+.passwordGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.passwordError {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  color: var(--danger);
+}
+
+/* ── Pie ────────────────────────────────────────────────── */
+.footerText {
+  margin-top: var(--space-lg);
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+.footerLink {
+  color: var(--info);
+  text-decoration: none;
+}
+
+.footerLink:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  .brandPanel {
+    display: flex;
+  }
+}

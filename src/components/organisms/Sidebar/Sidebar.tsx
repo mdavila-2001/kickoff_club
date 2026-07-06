@@ -15,6 +15,10 @@ import {
   Users,
 } from 'lucide-react';
 import { useAuthStore } from '../../../services/authStore';
+import { Modal } from '../../atoms/Modal/Modal';
+import { Button } from '../../atoms/Button/Button';
+import { apiClient } from '../../../services/api/apiClient';
+import { API_ROUTES } from '../../../services/api/routes';
 import styles from './Sidebar.module.css';
 
 export interface NavNode {
@@ -106,6 +110,8 @@ export const Sidebar = ({
   ...props
 }: SidebarProps) => {
   const logout = useAuthStore((state) => state.logout);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const sidebarClasses = [
     styles.sidebar,
@@ -114,6 +120,21 @@ export const Sidebar = ({
   ]
     .filter(Boolean)
     .join(' ');
+
+  const handleLogoutConfirm = async () => {
+    setIsLoggingOut(true);
+    try {
+      // Call backend logout endpoint
+      await apiClient(API_ROUTES.auth.logout, { method: 'POST' });
+    } catch (error) {
+      console.error('Error al notificar logout al servidor:', error);
+    } finally {
+      setIsLoggingOut(false);
+      setIsLogoutModalOpen(false);
+      // Clean local session state
+      logout();
+    }
+  };
 
   return (
     <aside id="app-sidebar" className={sidebarClasses} {...props}>
@@ -133,12 +154,40 @@ export const Sidebar = ({
       <button
         type="button"
         className={styles.logoutButton}
-        onClick={logout}
+        onClick={() => setIsLogoutModalOpen(true)}
         aria-label="Cerrar sesión"
       >
         <LogOut size={18} aria-hidden="true" />
         <span>Cerrar sesión</span>
       </button>
+
+      <Modal
+        isOpen={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        title="Confirmar Cerrar Sesión"
+      >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+          <p style={{ margin: 0, color: 'var(--text-muted)' }}>
+            ¿Estás seguro de que deseas cerrar tu sesión en KickOff Club? Tendrás que iniciar sesión nuevamente para acceder a tus quinielas.
+          </p>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem' }}>
+            <Button
+              variant="secondary"
+              onClick={() => setIsLogoutModalOpen(false)}
+              disabled={isLoggingOut}
+            >
+              Cancelar
+            </Button>
+            <Button
+              variant="can"
+              onClick={handleLogoutConfirm}
+              isLoading={isLoggingOut}
+            >
+              Cerrar Sesión
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </aside>
   );
 };
