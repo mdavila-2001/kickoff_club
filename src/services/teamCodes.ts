@@ -43,6 +43,7 @@ const TEAM_MAP: Readonly<Record<string, TeamCodes>> = {
   'italy': { iso2: 'it', fifa: 'ITA' },
   'slovenia': { iso2: 'si', fifa: 'SVN' },
   'albania': { iso2: 'al', fifa: 'ALB' },
+  'norway': { iso2: 'no', fifa: 'NOR' },
 
   // ── África ──
   'morocco': { iso2: 'ma', fifa: 'MAR' },
@@ -75,7 +76,6 @@ const TEAM_MAP: Readonly<Record<string, TeamCodes>> = {
   'new zealand': { iso2: 'nz', fifa: 'NZL' },
   'israel': { iso2: 'il', fifa: 'ISR' },
 
-  // ── CONCACAF / Caribe ──
   'costa rica': { iso2: 'cr', fifa: 'CRC' },
   'honduras': { iso2: 'hn', fifa: 'HON' },
   'panama': { iso2: 'pa', fifa: 'PAN' },

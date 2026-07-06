@@ -9,6 +9,7 @@ interface AuthState {
 
 interface AuthActions {
   readonly setAuth: (user: UserProfile, token: string) => void;
+  readonly updateUserProfile: (user: UserProfile) => void;
   readonly logout: () => void;
   readonly hydrate: () => Promise<void>;
 }
@@ -53,6 +54,15 @@ export const useAuthStore = create<AuthState & AuthActions>((set) => ({
     } catch (error) {
       console.error('Error al persistir la sesión:', error);
     }
+  },
+
+  updateUserProfile: (user) => {
+    try {
+      localStorage.setItem(USER_KEY, JSON.stringify(user));
+    } catch (error) {
+      console.error('Error al persistir el perfil actualizado:', error);
+    }
+    set({ user });
   },
 
   logout: () => {

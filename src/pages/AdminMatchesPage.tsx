@@ -17,6 +17,7 @@ import { InputField } from '../components/atoms/InputField/InputField';
 import { ScoreInput } from '../components/atoms/ScoreInput/ScoreInput';
 import { Flag } from '../components/atoms/Flag/Flag';
 import { getFlagUrl, getFifaCode } from '../services/teamCodes';
+import { getCountryCode, getCountryName } from '../services/countryHelper';
 
 import styles from './AdminMatchesPage.module.css';
 
@@ -104,11 +105,11 @@ export const AdminMatchesPage: React.FC = () => {
     setSelectedMatch(match);
     
     // Convert to Spanish for the form
-    const homeIso = countries.getAlpha2Code(match.homeTeam, 'en') || 'US';
-    const awayIso = countries.getAlpha2Code(match.awayTeam, 'en') || 'US';
+    const homeIso = getCountryCode(match.homeTeam, 'en') || 'US';
+    const awayIso = getCountryCode(match.awayTeam, 'en') || 'US';
     
-    setHomeTeamEs(countries.getName(homeIso, 'es') || match.homeTeam);
-    setAwayTeamEs(countries.getName(awayIso, 'es') || match.awayTeam);
+    setHomeTeamEs(getCountryName(homeIso, 'es') || match.homeTeam);
+    setAwayTeamEs(getCountryName(awayIso, 'es') || match.awayTeam);
     
     // Handle Local Date from UTC
     const localDate = new Date(match.dateTime);
@@ -133,7 +134,7 @@ export const AdminMatchesPage: React.FC = () => {
     setIsScoreModalOpen(true);
   };
 
-  const handleSaveMatch = async (e: React.FormEvent) => {
+  const handleSaveMatch = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormError(null);
 
@@ -142,8 +143,8 @@ export const AdminMatchesPage: React.FC = () => {
       return;
     }
 
-    const homeCode = countries.getAlpha2Code(homeTeamEs, 'es');
-    const awayCode = countries.getAlpha2Code(awayTeamEs, 'es');
+    const homeCode = getCountryCode(homeTeamEs, 'es');
+    const awayCode = getCountryCode(awayTeamEs, 'es');
 
     if (!homeCode) {
       setFormError(`No se reconoce el país local: "${homeTeamEs}"`);
@@ -154,8 +155,8 @@ export const AdminMatchesPage: React.FC = () => {
       return;
     }
 
-    const homeTeamEn = countries.getName(homeCode, 'en');
-    const awayTeamEn = countries.getName(awayCode, 'en');
+    const homeTeamEn = getCountryName(homeCode, 'en');
+    const awayTeamEn = getCountryName(awayCode, 'en');
 
     if (homeTeamEn === awayTeamEn) {
       setFormError('El equipo local y visitante deben ser diferentes.');
@@ -169,8 +170,6 @@ export const AdminMatchesPage: React.FC = () => {
       const dateTimeISO = localDateTime.toISOString();
 
       const payload: Record<string, unknown> = {
-        homeTeam: homeTeamEn,
-        awayTeam: awayTeamEn,
         dateTime: dateTimeISO,
         phase,
         stadium,
@@ -187,17 +186,21 @@ export const AdminMatchesPage: React.FC = () => {
           method: 'PATCH',
           body: JSON.stringify(payload),
         });
+        await fetchMatches();
         toast.success('Partido actualizado');
       } else {
+        payload.homeTeam = homeTeamEn;
+        payload.awayTeam = awayTeamEn;
+
         await apiClient(API_ROUTES.matches.base, {
           method: 'POST',
           body: JSON.stringify(payload),
         });
+        await fetchMatches();
         toast.success('Partido creado');
       }
 
       setIsFormModalOpen(false);
-      fetchMatches();
     } catch (err: unknown) {
       console.error(err);
       const message = err instanceof ApiError ? err.message : 'Error al guardar el partido.';
@@ -207,7 +210,7 @@ export const AdminMatchesPage: React.FC = () => {
     }
   };
 
-  const handleUpdateScore = async (e: React.FormEvent) => {
+  const handleUpdateScore = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!selectedMatch) return;
 
@@ -229,9 +232,9 @@ export const AdminMatchesPage: React.FC = () => {
         body: JSON.stringify(payload),
       });
 
+      await fetchMatches();
       toast.success('Resultados actualizados');
       setIsScoreModalOpen(false);
-      fetchMatches();
     } catch (err: unknown) {
       console.error(err);
       const message = err instanceof ApiError ? err.message : 'Error al actualizar resultado.';
@@ -246,8 +249,8 @@ export const AdminMatchesPage: React.FC = () => {
   const currentMatches = matches.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
   const formatTeamName = (englishName: string) => {
-    const code = countries.getAlpha2Code(englishName, 'en');
-    return code ? countries.getName(code, 'es') || englishName : englishName;
+    const code = getCountryCode(englishName, 'en');
+    return code ? getCountryName(code, 'es') || englishName : englishName;
   };
 
   const columns: ColumnConfig<TournamentMatch>[] = [
@@ -304,7 +307,7 @@ export const AdminMatchesPage: React.FC = () => {
       key: 'score',
       header: 'Res',
       align: 'center',
-      render: (m) => m.status !== 'PENDING' ? `${m.homeScore ?? '-'} : ${m.awayScore ?? '-'}` : '- : -'
+      render: (m) => m.status === 'PENDING' ? '- : -' : `${m.homeScore ?? '-'} : ${m.awayScore ?? '-'}`
     },
     {
       key: 'actions',

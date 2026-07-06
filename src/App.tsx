@@ -13,6 +13,7 @@ import { MatchesPage } from './pages/MatchesPage';
 import { GroupsPage } from './pages/GroupsPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { AdminMatchesPage } from './pages/AdminMatchesPage';
+import { ToastContainer } from './components/atoms/Toast/ToastContainer';
 
 /**
  * Cascarón privado: monta el Layout con la navegación según el rol
@@ -140,6 +141,7 @@ function App() {
 
         <Route path="*" element={<FallbackRedirect />} />
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
   );
 }

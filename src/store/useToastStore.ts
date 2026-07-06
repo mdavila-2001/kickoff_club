@@ -1,70 +1,63 @@
 import { create } from 'zustand';
 
-export interface Toast {
+export type ToastType = 'success' | 'error' | 'info';
+
+export interface ToastItem {
   readonly id: string;
-  readonly type: 'success' | 'error' | 'warning' | 'info';
   readonly message: string;
+  readonly type: ToastType;
   readonly duration?: number;
 }
 
-interface ToastState {
-  readonly toasts: readonly Toast[];
-  readonly addToast: (type: Toast['type'], message: string, duration?: number) => void;
-  readonly removeToast: (id: string) => void;
+export interface ToastState {
+  readonly toasts: ToastItem[];
+  readonly showToast: (message: string, type: ToastType, duration?: number) => void;
+  readonly dismissToast: (id: string) => void;
 }
 
-const DEFAULT_DURATION_MS = 4000;
-
 const activeTimers = new Map<string, ReturnType<typeof setTimeout>>();
-
-const generateToastId = (): string =>
-  typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
-    ? crypto.randomUUID()
-    : `toast-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
 
 export const useToastStore = create<ToastState>((set, get) => ({
   toasts: [],
 
-  addToast: (type, message, duration = DEFAULT_DURATION_MS) => {
-    const newToast: Toast = {
-      id: generateToastId(),
-      type,
-      message,
-      duration,
-    };
+  showToast: (message, type, duration = 4000) => {
+    const id = typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+      ? crypto.randomUUID()
+      : `toast-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+
+    const newToast: ToastItem = { id, message, type, duration };
 
     set((state) => ({ toasts: [...state.toasts, newToast] }));
 
-    // Auto-limpieza: un duration <= 0 crea un toast persistente
-    // que solo se cierra manualmente con removeToast.
     if (duration > 0) {
-      const timer = setTimeout(() => get().removeToast(newToast.id), duration);
-      activeTimers.set(newToast.id, timer);
+      const timer = setTimeout(() => {
+        get().dismissToast(id);
+      }, duration);
+      activeTimers.set(id, timer);
     }
   },
 
-  removeToast: (id) => {
+  dismissToast: (id) => {
     const timer = activeTimers.get(id);
     if (timer !== undefined) {
       clearTimeout(timer);
       activeTimers.delete(id);
     }
 
-    set((state) => ({ toasts: state.toasts.filter((toast) => toast.id !== id) }));
+    set((state) => ({
+      toasts: state.toasts.filter((t) => t.id !== id),
+    }));
   },
 }));
 
-/*
- * Atajos para disparar toasts fuera de componentes React
- * (interceptores de axios, servicios, etc.).
- */
+// Compatibility helper object to prevent breaking existing imports in the application
 export const toast = {
   success: (message: string, duration?: number) =>
-    useToastStore.getState().addToast('success', message, duration),
+    useToastStore.getState().showToast(message, 'success', duration),
   error: (message: string, duration?: number) =>
-    useToastStore.getState().addToast('error', message, duration),
-  warning: (message: string, duration?: number) =>
-    useToastStore.getState().addToast('warning', message, duration),
+    useToastStore.getState().showToast(message, 'error', duration),
   info: (message: string, duration?: number) =>
-    useToastStore.getState().addToast('info', message, duration),
+    useToastStore.getState().showToast(message, 'info', duration),
+  warning: (message: string, duration?: number) =>
+    useToastStore.getState().showToast(message, 'info', duration),
 } as const;

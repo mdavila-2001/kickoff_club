@@ -6,6 +6,7 @@ export interface LeagueGroup {
   readonly inviteCode: string;
   readonly creatorId: string;
   readonly createdAt: string;
+  readonly participants?: readonly GroupParticipant[];
 }
 
 export interface GroupParticipant {

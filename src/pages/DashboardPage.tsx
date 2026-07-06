@@ -14,6 +14,7 @@ import { MatchCard } from '../components/molecules/MatchCard/MatchCard';
 import { Skeleton } from '../components/atoms/Skeleton/Skeleton';
 import { Button } from '../components/atoms/Button/Button';
 import { toast } from '../store/useToastStore';
+import { getCountryCode, getCountryName } from '../services/countryHelper';
 import type { TournamentMatch, UserPrediction } from '../types';
 import styles from './DashboardPage.module.css';
 import { InputField } from '../components/atoms/InputField/InputField';
@@ -37,9 +38,9 @@ const translateTeamName = (teamName: string): string => {
   const trimmed = teamName.trim();
   if (trimmed.toUpperCase() === 'USA') return 'Estados Unidos';
   // Intentar obtener el código ISO en inglés o en español
-  const code = countries.getAlpha2Code(trimmed, 'en') || countries.getAlpha2Code(trimmed, 'es');
+  const code = getCountryCode(trimmed, 'en') || getCountryCode(trimmed, 'es');
   if (code) {
-    return countries.getName(code, 'es') || trimmed;
+    return getCountryName(code, 'es') || trimmed;
   }
   return trimmed;
 };
@@ -141,8 +142,8 @@ export const DashboardPage = () => {
           }),
         }
       );
-      toast.success(`${res.message}. Partidos sincronizados: ${res.synchronized}`);
       await loadAdminData();
+      toast.success(`${res.message}. Partidos sincronizados: ${res.synchronized}`);
     } catch (err: unknown) {
       const message = err instanceof ApiError ? err.message : 'Fallo en la sincronización.';
       toast.error(message);
