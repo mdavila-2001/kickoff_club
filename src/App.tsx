@@ -12,6 +12,7 @@ import { DashboardPage } from './pages/DashboardPage';
 import { MatchesPage } from './pages/MatchesPage';
 import { GroupsPage } from './pages/GroupsPage';
 import { ProfilePage } from './pages/ProfilePage';
+import { AdminMatchesPage } from './pages/AdminMatchesPage';
 
 /**
  * Cascarón privado: monta el Layout con la navegación según el rol
@@ -133,6 +134,7 @@ function App() {
             <Route path="/matches" element={<MatchesPage />} />
             <Route path="/groups" element={<GroupsPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/admin/matches" element={<AdminMatchesPage />} />
           </Route>
         </Route>
 

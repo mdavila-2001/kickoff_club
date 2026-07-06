@@ -22,6 +22,9 @@ export const API_ROUTES = {
     base: '/predictions',
     me: '/predictions/me',
   },
+  dashboard: {
+    summary: '/dashboard/summary',
+  },
   users: {
     me: '/users/me',
   },

@@ -20,14 +20,9 @@ export const USER_NAVIGATION: readonly NavNode[] = [
   { label: 'Mi Perfil', path: '/profile', icon: 'profile' },
 ];
 
-const ADMIN_SECTION: readonly NavNode[] = [
-  { label: 'Gestión de Partidos', path: '/admin/matches', icon: 'admin' },
-  { label: 'Sincronización', path: '/admin/sync', icon: 'sync' },
-];
-
 export const ADMIN_NAVIGATION: readonly NavNode[] = [
-  ...USER_NAVIGATION,
-  ...ADMIN_SECTION,
+  { label: 'Panel Principal', path: '/dashboard', icon: 'admin' },
+  { label: 'Partidos', path: '/admin/matches', icon: 'calendar' },
 ];
 
 export const getNavigationForRole = (role?: UserRole): readonly NavNode[] =>

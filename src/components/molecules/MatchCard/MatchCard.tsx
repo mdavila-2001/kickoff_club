@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { z } from 'zod';
 import { Skeleton } from '../../atoms/Skeleton/Skeleton';
 import { CountdownTimer } from '../../atoms/CountdownTimer/CountdownTimer';
+import { InputField } from '../../atoms/InputField/InputField';
 import styles from './MatchCard.module.css';
 
 export type MatchStatus = 'UPCOMING' | 'LIVE' | 'FINISHED';
@@ -17,8 +18,8 @@ export interface MatchDTO {
   homeTeam: TeamDTO;
   awayTeam: TeamDTO;
   status: MatchStatus;
-  startTime: string; // ISO 8601
-  homeScore?: number; // Marcador real en vivo/finalizado
+  startTime: string;
+  homeScore?: number;
   awayScore?: number;
 }
 
@@ -38,7 +39,7 @@ const scoreSchema = z.number()
 const validateScore = (val: string): boolean => {
   if (val.trim() === '') return false;
   const num = Number(val);
-  if (isNaN(num)) return false;
+  if (Number.isNaN(num)) return false;
   const result = scoreSchema.safeParse(num);
   return result.success;
 };
@@ -51,14 +52,12 @@ export const MatchCard = React.memo(({
   className = '',
   ...props
 }: MatchCardProps) => {
-  // Estados para predicción local
   const [homePred, setHomePred] = useState<string>('');
   const [awayPred, setAwayPred] = useState<string>('');
   const [homeError, setHomeError] = useState(false);
   const [awayError, setAwayError] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
-  // Sincroniza predicciones iniciales
   useEffect(() => {
     if (initialPrediction) {
       setHomePred(String(initialPrediction.homeScore));
@@ -73,24 +72,23 @@ export const MatchCard = React.memo(({
     }
   }, [initialPrediction]);
 
-  // Manejo de cambios
   const handleHomeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setHomePred(val);
-    if (val.trim() !== '') {
-      setHomeError(!validateScore(val));
-    } else {
+    if (val.trim() === '') {
       setHomeError(false);
+    } else {
+      setHomeError(!validateScore(val));
     }
   };
 
   const handleAwayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setAwayPred(val);
-    if (val.trim() !== '') {
-      setAwayError(!validateScore(val));
-    } else {
+    if (val.trim() === '') {
       setAwayError(false);
+    } else {
+      setAwayError(!validateScore(val));
     }
   };
 
@@ -150,7 +148,7 @@ export const MatchCard = React.memo(({
         <CountdownTimer targetDate={match.startTime} />
         
         <div className={styles.scoreRow} style={{ marginTop: '6px' }}>
-          <input
+          <InputField
             type="number"
             value={homePred}
             onChange={handleHomeChange}
@@ -159,9 +157,10 @@ export const MatchCard = React.memo(({
             placeholder="-"
             disabled={isSaving}
             aria-label={`Predicción goles local para ${match.homeTeam.name}`}
+            containerStyle={{ width: '48px', height: '48px' }}
           />
           <span className={styles.colon} aria-hidden="true">:</span>
-          <input
+          <InputField
             type="number"
             value={awayPred}
             onChange={handleAwayChange}
@@ -170,6 +169,7 @@ export const MatchCard = React.memo(({
             placeholder="-"
             disabled={isSaving}
             aria-label={`Predicción goles visitante para ${match.awayTeam.name}`}
+            containerStyle={{ width: '48px', height: '48px' }}
           />
         </div>
 
@@ -203,20 +203,22 @@ export const MatchCard = React.memo(({
 
         {/* Inputs de predicción bloqueados para reflejar estado transaccional */}
         <div className={styles.scoreRow} style={{ marginTop: '8px' }}>
-          <input
+          <InputField
             type="number"
             value={homePred}
             disabled
             className={styles.scoreInput}
             aria-label={`Predicción goles local bloqueada`}
+            containerStyle={{ width: '48px', height: '48px' }}
           />
           <span className={styles.colon} aria-hidden="true">:</span>
-          <input
+          <InputField
             type="number"
             value={awayPred}
             disabled
             className={styles.scoreInput}
             aria-label={`Predicción goles visitante bloqueada`}
+            containerStyle={{ width: '48px', height: '48px' }}
           />
         </div>
       </div>
@@ -276,6 +278,15 @@ export const MatchCard = React.memo(({
 
       {/* Zona Central (Strategy) */}
       <div className={styles.centerZone}>
+        <span className={styles.matchDate}>
+          {new Date(match.startTime).toLocaleString('es-ES', {
+            day: 'numeric',
+            month: 'short',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false,
+          })}
+        </span>
         {renderStatusZone()}
       </div>
 

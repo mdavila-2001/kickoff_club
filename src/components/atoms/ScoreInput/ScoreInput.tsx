@@ -85,7 +85,14 @@ export const ScoreInput = ({
       className={[styles.scoreInput, className].filter(Boolean).join(' ')}
       aria-label={ariaLabel}
       value={buffer}
-      onChange={(event) => setBuffer(event.target.value)}
+      onChange={(event) => {
+        const val = event.target.value;
+        setBuffer(val);
+        const parsed = Number.parseInt(val, 10);
+        if (Number.isInteger(parsed) && parsed >= 0) {
+          onChange?.(parsed);
+        }
+      }}
       onKeyDown={handleKeyDown}
       onBlur={handleBlur}
     />

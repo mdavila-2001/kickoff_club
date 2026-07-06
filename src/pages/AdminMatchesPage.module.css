@@ -1,0 +1,59 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #F9FAFB;
+  margin: 0;
+}
+
+.subtitle {
+  color: #9CA3AF;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.tableSection {
+  background: rgba(31, 41, 55, 0.5);
+  border: 1px solid rgba(55, 65, 81, 0.5);
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+/* Modals */
+.modalForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.errorText {
+  color: #EF4444;
+  font-size: 0.875rem;
+  margin-top: -0.5rem;
+}

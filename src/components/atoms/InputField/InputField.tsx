@@ -4,10 +4,11 @@ import styles from './InputField.module.css';
 export interface InputFieldProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
   readonly label?: string;
   readonly error?: string;
-  readonly type?: 'text' | 'number' | 'password' | 'file';
+  readonly type?: 'text' | 'number' | 'password' | 'file' | 'date' | 'time';
+  readonly containerClassName?: string;
+  readonly containerStyle?: React.CSSProperties;
 }
 
-/* ── Íconos SVG inline para el toggle de contraseña ─────── */
 const EyeIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
@@ -25,7 +26,7 @@ const EyeOffIcon = () => (
 );
 
 export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
-  ({ label, error, type = 'text', className = '', id, ...props }, ref) => {
+  ({ label, error, type = 'text', className = '', id, containerClassName = '', containerStyle, ...props }, ref) => {
     const generatedId = useId();
     const inputId = id || generatedId;
     const errorId = `${inputId}-error`;
@@ -45,7 +46,7 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
       .join(' ');
 
     return (
-      <div className={styles.fieldContainer}>
+      <div className={`${styles.fieldContainer} ${containerClassName}`.trim()} style={containerStyle}>
         {label && (
           <label htmlFor={inputId} className={styles.labelElement}>
             {label}

@@ -84,21 +84,22 @@
 }
 
 .scoreInput {
-  width: 48px;
-  height: 48px;
-  background-color: var(--bg-main, #0B0F19);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: var(--radius-sm, 4px);
-  color: var(--text-main, #ffffff);
-  font-family: 'Courier New', Courier, monospace;
-  font-size: var(--font-size-xl, 1.25rem);
-  font-weight: 700;
-  text-align: center;
-  outline: none;
-  box-sizing: border-box;
-  transition: var(--transition-fast);
-  appearance: textfield;
-  -moz-appearance: textfield;
+  width: 48px !important;
+  height: 48px !important;
+  padding: 0 !important;
+  background-color: var(--bg-main, #0B0F19) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: var(--radius-sm, 4px) !important;
+  color: var(--text-main, #ffffff) !important;
+  font-family: 'Courier New', Courier, monospace !important;
+  font-size: var(--font-size-xl, 1.25rem) !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  outline: none !important;
+  box-sizing: border-box !important;
+  transition: var(--transition-fast) !important;
+  appearance: textfield !important;
+  -moz-appearance: textfield !important;
 }
 
 .scoreInput::-webkit-outer-spin-button,
@@ -270,4 +271,13 @@
     text-align: center;
     justify-content: center;
   }
+}
+
+.matchDate {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--text-muted, #9ca3af);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
 }

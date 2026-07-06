@@ -1,0 +1,575 @@
+.dashboardRoot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  padding: var(--space-lg);
+  height: 100%;
+  overflow-y: auto;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  min-height: 0;
+}
+
+/* Banner superior */
+.welcomeBanner {
+  position: relative;
+  background: linear-gradient(135deg, #131726 0%, #1c233a 100%);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bannerPattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 16px 16px;
+  pointer-events: none;
+}
+
+.bannerContent {
+  position: relative;
+  z-index: 1;
+}
+
+.syncIndicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--font-size-xs);
+  color: var(--success);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  margin-bottom: var(--space-xs);
+}
+
+.syncDot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--success);
+  border-radius: var(--radius-full);
+  display: inline-block;
+  animation: pulse 2s infinite;
+}
+
+.welcomeTitle {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1.1;
+  color: var(--text-main);
+}
+
+.welcomeName {
+  color: var(--brand-gold);
+}
+
+.welcomeDate {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.filterBtn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  padding: var(--space-xs) var(--space-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  transition: var(--transition-fast);
+}
+
+.filterBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--text-muted);
+}
+
+/* KPI Metrics Grid */
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-md);
+}
+
+.metricCard {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+}
+
+.metricCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Dynamic Left borders from mockup */
+.borderGold {
+  border-left: 4px solid var(--brand-gold);
+}
+
+.borderBlue {
+  border-left: 4px solid var(--primary-usa);
+}
+
+.borderGreen {
+  border-left: 4px solid var(--success);
+}
+
+.metricLabel {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.metricValueRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  margin-top: var(--space-xs);
+}
+
+.metricValue {
+  font-family: var(--font-display);
+  font-size: var(--font-size-3xl);
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.metricTrend {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.trendUp {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success);
+}
+
+.trendDown {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--danger);
+}
+
+.trendStable {
+  background: rgba(156, 163, 175, 0.1);
+  color: var(--text-muted);
+}
+
+.metricSubtext {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.cardIconWatermark {
+  position: absolute;
+  right: -10px;
+  bottom: -10px;
+  opacity: 0.03;
+  color: var(--text-main);
+  pointer-events: none;
+}
+
+/* Contenido Principal de dos columnas */
+.mainLayout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 1024px) {
+  .mainLayout {
+    grid-template-columns: 1.5fr 1fr;
+  }
+}
+
+.leftColumn, .rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.viewAllLink {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: var(--transition-fast);
+}
+
+.viewAllLink:hover {
+  color: var(--brand-gold);
+}
+
+/* Partidos pendientes grid/carousel */
+.matchesList {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+@media (min-width: 640px) {
+  .matchesList {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+}
+
+/* Vacío partidos pendientes */
+.emptyMatches {
+  background: var(--bg-surface);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/* Tarjeta Ligas / Rankings */
+.leaguesCard {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.leaguesTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.leaguesTableHeader {
+  text-align: left;
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.leaguesTableCell {
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  font-size: var(--font-size-sm);
+}
+
+.groupCell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-weight: 600;
+}
+
+.groupAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: var(--font-size-xs);
+  color: var(--brand-gold);
+  border: 1px solid var(--border-color);
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.textRight {
+  text-align: right;
+}
+
+.emptyLeagues {
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+/* ──────── ADMIN DASHBOARD STYLES ──────── */
+.adminTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+}
+
+.adminHeaderTitle {
+  font-family: var(--font-display);
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.adminActionBtn {
+  background: var(--brand-gold);
+  color: var(--bg-main);
+  border: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.05em;
+  transition: var(--transition-fast);
+}
+
+.adminActionBtn:hover:not(:disabled) {
+  background: #d97706;
+}
+
+.adminActionBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Panel Izquierdo: New Fixture Form */
+.formCard {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.formSubtitle {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  margin-bottom: var(--space-md);
+}
+
+.adminForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.formGrid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+.errorText {
+  color: var(--danger);
+  font-size: var(--font-size-xs);
+  margin-top: 4px;
+}
+
+/* Match Monitor List */
+.monitorCard {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.monitorRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm);
+  background: rgba(255, 255, 255, 0.01);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.monitorMatchInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex: 1;
+}
+
+.monitorStatusTag {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  min-width: 60px;
+  text-align: center;
+}
+
+.tagLive {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--danger);
+}
+
+.tagFt {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success);
+}
+
+.tagScheduled {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--brand-gold);
+}
+
+.monitorTeamsRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+}
+
+.monitorBadge {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.monitorScoreBox {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.scoreInputSmall {
+  width: 36px !important;
+  height: 28px !important;
+  padding: 0 !important;
+  text-align: center !important;
+  background: var(--bg-surface-elevated) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-main) !important;
+  border-radius: var(--radius-sm) !important;
+  font-weight: bold !important;
+}
+
+.monitorActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.btnActionSmall {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  font-size: var(--font-size-xs);
+  font-weight: bold;
+  padding: 4px var(--space-sm);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.btnActionSmall:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btnEndHalf {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.btnEndHalf:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.btnFinalize {
+  background: var(--success);
+  color: var(--bg-main);
+  border: none;
+}
+
+.btnFinalize:hover {
+  background: #059669;
+}
+
+/* Skeletons */
+.skeletonBanner {
+  height: 120px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+}
+
+.skeletonMetric {
+  height: 100px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+}
+
+.skeletonSection {
+  height: 300px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+}
