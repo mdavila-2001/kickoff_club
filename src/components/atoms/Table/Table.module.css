@@ -1,0 +1,70 @@
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  background-color: var(--bg-surface);
+}
+
+.mainTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: transparent;
+}
+
+.th {
+  padding: 0.75rem 1rem;
+  font-family: var(--font-display);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  border-bottom: 2px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.td {
+  padding: 0.75rem 1rem;
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--text-main);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tr:last-child .td {
+  border-bottom: none;
+}
+
+/* ── Alineación ─────────────────────────────────────────── */
+.alignLeft {
+  text-align: left;
+}
+
+.alignCenter {
+  text-align: center;
+}
+
+.alignRight {
+  text-align: right;
+}
+
+/* ── Efecto zebra sutil ─────────────────────────────────── */
+.tr:nth-child(even) {
+  background-color: color-mix(in srgb, var(--bg-surface-elevated) 45%, transparent);
+}
+
+.tr:hover {
+  background-color: color-mix(in srgb, var(--surface-hover) 30%, transparent);
+  transition: var(--transition-fast);
+}
+
+/* ── Estado vacío ───────────────────────────────────────── */
+.emptyState {
+  padding: 1.5rem 1rem;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}

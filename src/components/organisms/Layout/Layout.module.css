@@ -1,0 +1,20 @@
+.layoutRoot {
+  display: grid;
+  grid-template-rows: var(--header-height, 60px) 1fr;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    'sidebar header'
+    'sidebar main';
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+}
+
+.mainContent {
+  grid-area: main;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 1.5rem;
+  min-width: 0;
+}

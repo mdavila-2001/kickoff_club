@@ -1,0 +1,59 @@
+.header {
+  grid-area: header;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: var(--header-height, 60px);
+  padding: 0 1.25rem;
+  background-color: var(--bg-main);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  min-width: 0;
+}
+
+.menuButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.menuButton:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+  color: var(--text-main);
+}
+
+.menuButton:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* En escritorio el control de colapso vive dentro del Sidebar */
+@media (min-width: 1024px) {
+  .menuButton {
+    display: none;
+  }
+}
+
+.slotArea {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.userActions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}

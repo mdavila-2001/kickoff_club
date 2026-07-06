@@ -1,0 +1,1 @@
+export type TournamentMatchStatus = 'PENDING' | 'ONGOING' | 'FINISHED';

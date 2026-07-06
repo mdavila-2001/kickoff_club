@@ -1,0 +1,23 @@
+.fieldContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  width: 100%;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-muted);
+  width: fit-content;
+}
+
+.errorMessage {
+  min-height: 1.25rem; /* Reserva espacio para evitar layout shifts */
+  font-size: var(--font-size-xs);
+  color: var(--danger);
+  margin-top: 0.125rem;
+  transition: opacity 0.15s ease-in-out;
+  display: block;
+}

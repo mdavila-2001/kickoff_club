@@ -1,0 +1,59 @@
+.scoreInput {
+  width: 48px;
+  height: 40px;
+  box-sizing: border-box;
+  text-align: center;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  outline: none;
+  transition: border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scoreInput:focus {
+  border-color: var(--brand-gold);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--brand-gold) 55%, transparent);
+}
+
+.scoreInput:disabled {
+  color: var(--text-disabled);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ── Ocultar spinners nativos (cross-browser) ───────────── */
+.scoreInput::-webkit-outer-spin-button,
+.scoreInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.scoreInput {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* ── Marcador bloqueado ─────────────────────────────────── */
+.lockedScore {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 40px;
+  box-sizing: border-box;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  background-color: var(--bg-surface-elevated);
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  user-select: none;
+}

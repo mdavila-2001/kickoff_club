@@ -1,22 +1,18 @@
+import type { TournamentMatchStatus } from './tournament-match-status';
+
 export interface TournamentMatch {
   readonly id: string;
-  readonly homeTeam: {
-    readonly name: string;
-    readonly flagUrl: string;
-  };
-  readonly awayTeam: {
-    readonly name: string;
-    readonly flagUrl: string;
-  };
-  readonly venue: {
-    readonly stadium: string;
-    readonly city: string;
-  };
-  readonly group: string;
-  readonly kickoffTime: string;
-  readonly status: 'PENDING' | 'LIVE' | 'FINISHED';
-  readonly result?: {
-    readonly homeScore?: number;
-    readonly awayScore?: number;
-  };
+  readonly externalApiId: string | null;
+  readonly homeTeam: string;
+  readonly awayTeam: string;
+  readonly dateTime: string;
+  readonly phase: string;
+  readonly status: TournamentMatchStatus;
+  readonly homeScore: number | null;
+  readonly awayScore: number | null;
+  readonly stadium: string;
+  readonly city: string;
+  readonly homeTeamBadge: string | null;
+  readonly awayTeamBadge: string | null;
+  readonly updatedAt: string;
 }

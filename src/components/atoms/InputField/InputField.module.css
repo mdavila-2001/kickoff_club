@@ -1,0 +1,100 @@
+.fieldContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.labelElement {
+  font-family: var(--font-display);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  cursor: pointer;
+  width: fit-content;
+}
+
+/* ── Input wrapper (posiciona el toggle) ──────────────── */
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.inputElement {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: var(--font-size-md);
+  padding: 0.75rem 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  transition: var(--transition-fast);
+}
+
+/* Deja espacio para el botón del ojo */
+.inputElement.hasToggle {
+  padding-right: 3rem;
+}
+
+.inputElement::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.inputElement:focus {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  border-color: transparent;
+}
+
+.inputElement:disabled {
+  color: var(--text-disabled) !important;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.hasError {
+  border-color: var(--danger);
+}
+
+.inputElement.hasError:focus {
+  outline-color: var(--danger);
+}
+
+/* ── Toggle de visibilidad (contraseña) ──────────────── */
+.toggleButton {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-fast);
+}
+
+.toggleButton:hover {
+  color: var(--text-main);
+}
+
+.toggleButton:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.errorMessage {
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  color: var(--danger);
+  margin-top: 0.125rem;
+}

@@ -1,0 +1,169 @@
+.sidebar {
+  grid-area: sidebar;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--surface-card);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  transition: width var(--transition-normal, 0.25s) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.expanded {
+  width: 260px;
+}
+
+/* ── Marca ──────────────────────────────────────────────── */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  height: var(--header-height, 60px);
+  padding: 0 0.75rem;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-main);
+  white-space: nowrap;
+}
+
+.brandMark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  background-color: var(--brand-gold);
+  color: var(--bg-main);
+  font-size: var(--font-size-md);
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+/* ── Navegación ─────────────────────────────────────────── */
+.navigation {
+  flex: 1;
+  padding: 0.75rem 0.5rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.navList,
+.submenu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.submenu {
+  margin-top: 0.25rem;
+  padding-left: 1.75rem;
+}
+
+
+
+.navItem {
+  min-width: 0;
+}
+
+.navLink,
+.navButton {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  background-color: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  text-decoration: none;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition-fast);
+}
+
+.navLink:hover,
+.navButton:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+  color: var(--text-main);
+}
+
+.navLink:focus-visible,
+.navButton:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: -2px;
+}
+
+.navLinkActive {
+  background-color: rgba(255, 255, 255, 0.04);
+  color: var(--brand-gold);
+}
+
+.navIcon {
+  flex-shrink: 0;
+}
+
+/* ── Texto con transición fluida al colapsar ────────────── */
+.navLabel {
+  overflow: hidden;
+  opacity: 1;
+  transition: opacity var(--transition-normal, 0.25s) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+
+.chevron {
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: transform var(--transition-normal, 0.25s) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+
+
+/* ── Botón de cerrar sesión ─────────────────────────────── */
+.logoutButton {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin: 0.5rem;
+  padding: 0.625rem 0.75rem;
+  flex-shrink: 0;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition-fast);
+}
+
+.logoutButton:hover {
+  background-color: rgba(220, 38, 38, 0.12);
+  border-color: rgba(220, 38, 38, 0.4);
+  color: #f87171;
+}
+
+.logoutButton:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: -2px;
+}

@@ -1,0 +1,70 @@
+.skeleton {
+  display: block;
+  background-color: var(--surface-card);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Variantes geométricas ──────────────────────────────── */
+.text {
+  height: 1em;
+  border-radius: var(--radius-sm);
+  margin-bottom: 0.5em;
+}
+
+.circle {
+  border-radius: var(--radius-full);
+}
+
+.rect {
+  border-radius: var(--radius-md);
+}
+
+/* ── Animación: pulse ───────────────────────────────────── */
+.pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* ── Animación: shimmer (compuesta en GPU vía transform) ── */
+.shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--surface-hover) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  animation: shimmer 1.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse {
+    animation: none;
+  }
+
+  .shimmer::after {
+    animation: none;
+    transform: none;
+    opacity: 0.3;
+  }
+}

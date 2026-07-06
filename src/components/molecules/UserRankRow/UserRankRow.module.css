@@ -1,0 +1,101 @@
+.rowContainer {
+  display: grid;
+  grid-template-columns: 40px 1fr 80px 80px;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1rem;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid transparent;
+  border-radius: var(--radius-md);
+  transition: var(--transition-fast);
+}
+
+.rowContainer:hover {
+  background-color: color-mix(in srgb, var(--surface-hover) 25%, var(--bg-surface));
+}
+
+.currentUser {
+  background-color: var(--bg-surface-elevated);
+  border-left: 3px solid var(--brand-gold);
+}
+
+/* ── Posición ───────────────────────────────────────────── */
+.rankNumber {
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--text-muted);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Usuario y estadísticas ─────────────────────────────── */
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.username {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-main);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.userStats {
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Puntos ─────────────────────────────────────────────── */
+.points {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 0.25rem;
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--brand-gold);
+  font-variant-numeric: tabular-nums;
+}
+
+.pointsUnit {
+  font-size: var(--font-size-xs);
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+/* ── Tendencia posicional ───────────────────────────────── */
+.delta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.25rem;
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.deltaUp {
+  color: var(--success);
+}
+
+.deltaDown {
+  color: var(--danger);
+}
+
+.deltaStable {
+  color: var(--text-muted);
+}

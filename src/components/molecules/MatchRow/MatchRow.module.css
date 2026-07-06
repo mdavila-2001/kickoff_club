@@ -1,0 +1,212 @@
+.rowContainer {
+  display: grid;
+  grid-template-columns: 1fr auto 80px auto 80px auto 1fr;
+  align-items: center;
+  gap: var(--space-md);
+  padding: 1rem 1.25rem;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  transition: var(--transition-smooth);
+  width: 100%;
+}
+
+.rowContainer:hover {
+  border-color: var(--surface-hover);
+  background-color: var(--bg-surface-elevated);
+}
+
+/* Equipos */
+.teamContainer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-main);
+  font-size: var(--font-size-md);
+  min-width: 0;
+}
+
+.homeTeam {
+  justify-content: flex-end;
+  text-align: right;
+  grid-column: 1;
+}
+
+.homeFlag {
+  grid-column: 2;
+}
+
+.awayFlag {
+  grid-column: 6;
+}
+
+.awayTeam {
+  justify-content: flex-start;
+  text-align: left;
+  grid-column: 7;
+}
+
+.teamName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Inputs de Marcador */
+.scoreColHome {
+  grid-column: 3;
+  display: flex;
+  justify-content: center;
+}
+
+.scoreColAway {
+  grid-column: 5;
+  display: flex;
+  justify-content: center;
+}
+
+.scoreInput {
+  width: 50px;
+  height: 40px;
+  background-color: var(--surface-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  text-align: center;
+  outline: none;
+  box-sizing: border-box;
+  transition: var(--transition-fast);
+}
+
+/* Brillo Neon sutil al enfocar */
+.scoreInput:focus:not(:disabled) {
+  border-color: var(--brand-gold);
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.6), 
+              0 0 16px rgba(245, 158, 11, 0.3);
+  background-color: var(--bg-surface-elevated);
+}
+
+.scoreInput:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Estado Bloqueado / Solo lectura */
+.scoreValue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 40px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--brand-gold);
+  background-color: var(--bg-main);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-sm);
+}
+
+/* Separador */
+.separatorCol {
+  grid-column: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
+}
+
+.vsText {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+
+.timeText {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+/* Responsividad adaptativa */
+@media (max-width: 768px) {
+  .rowContainer {
+    grid-template-columns: 1fr auto 60px auto 60px auto 1fr;
+    gap: var(--space-xs);
+    padding: 0.75rem;
+  }
+  
+  .scoreInput, .scoreValue {
+    width: 44px;
+    font-size: var(--font-size-md);
+  }
+  
+  .teamName {
+    font-size: var(--font-size-sm);
+  }
+}
+
+@media (max-width: 580px) {
+  .rowContainer {
+    grid-template-columns: 1fr 45px 1fr;
+    grid-template-rows: auto auto;
+    gap: var(--space-sm) var(--space-xs);
+  }
+  
+  .homeTeam {
+    grid-column: 1;
+    grid-row: 1;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column-reverse;
+  }
+
+  .homeFlag {
+    display: none; /* Ocultamos banderas secundarias para economizar espacio vertical en layouts muy angostos */
+  }
+  .awayFlag {
+    display: none;
+  }
+  
+  .awayTeam {
+    grid-column: 3;
+    grid-row: 1;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+  }
+  
+  .separatorCol {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 40px;
+  }
+  
+  /* Inputs alineados lado a lado debajo del nombre del partido */
+  .scoreColHome {
+    grid-column: 1;
+    grid-row: 2;
+    justify-content: flex-end;
+  }
+  
+  .scoreColAway {
+    grid-column: 3;
+    grid-row: 2;
+    justify-content: flex-start;
+  }
+  
+  /* Puntos suspensivos o raya en el medio para los inputs en móviles */
+  .vsText {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: 0.5rem;
+  }
+}

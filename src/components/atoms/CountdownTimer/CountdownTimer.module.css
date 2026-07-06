@@ -1,0 +1,20 @@
+.timerContainer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  min-width: 5.5ch;
+  transition: var(--transition-fast);
+}
+
+.normal {
+  color: var(--text-muted);
+}
+
+.critical {
+  color: var(--danger);
+  text-shadow: 0 0 8px color-mix(in srgb, var(--danger) 55%, transparent);
+}

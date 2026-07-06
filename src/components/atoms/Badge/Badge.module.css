@@ -1,0 +1,68 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 4px 8px;
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: var(--radius-badge);
+}
+
+.live {
+  color: var(--text-main);
+  background-color: var(--bg-surface-elevated);
+}
+
+.upcoming {
+  color: var(--info);
+  background-color: var(--bg-surface-elevated);
+}
+
+.finished {
+  color: var(--text-muted);
+  background-color: var(--surface-card);
+}
+
+.exact {
+  color: var(--success);
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--success);
+}
+
+.winner {
+  color: var(--warning);
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--warning);
+}
+
+.missed {
+  color: var(--danger);
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--danger);
+}
+
+.pulseDot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--live-dot);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 1;
+  }
+}

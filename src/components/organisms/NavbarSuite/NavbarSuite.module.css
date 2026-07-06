@@ -1,0 +1,297 @@
+.navbar {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-lg, 24px);
+  position: sticky;
+  top: 0;
+  z-index: 500; /* aligns with --z-navigation */
+  background-color: #0B0F19; /* dark mode surface-navbar */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  box-sizing: border-box;
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-main, #FFFFFF);
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+}
+
+.brandIconWrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm, 4px);
+  background-color: var(--brand-gold, #F59E0B);
+  color: #0B0D16;
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+.brandIcon {
+  width: 100%;
+  height: 100%;
+}
+
+.brandName {
+  white-space: nowrap;
+}
+
+/* ── Tenant Badge ────────────────────────────────────────── */
+.tenantBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full, 9999px);
+}
+
+.tenantDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #00F0FF; /* neon accent */
+  box-shadow: 0 0 6px #00F0FF;
+}
+
+.tenantName {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--text-muted, #9CA3AF);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ── Navigation Links ────────────────────────────────────── */
+.navList {
+  display: flex;
+  gap: 1.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  height: 100%;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  position: relative;
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 0.25rem;
+  color: var(--text-muted, #9CA3AF);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  transition: color var(--transition-fast, 0.15s) ease;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+.navLink:hover {
+  color: var(--text-main, #FFFFFF);
+}
+
+.activeLink {
+  color: #00F0FF; /* neon accent link */
+  font-weight: 600;
+}
+
+.activeLink::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #00F0FF;
+  box-shadow: 0 0 8px #00F0FF;
+}
+
+/* ── User Dropdown / Area ────────────────────────────────── */
+.userSection {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.profileTrigger {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md, 8px);
+  color: var(--text-main, #FFFFFF);
+  cursor: pointer;
+  transition: var(--transition-fast, 0.15s);
+}
+
+.profileTrigger:hover,
+.profileTriggerActive {
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--text-muted, #9CA3AF);
+}
+
+.userIcon {
+  width: 14px;
+  height: 14px;
+}
+
+.username {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chevron {
+  color: var(--text-muted, #9CA3AF);
+  transition: transform 0.2s ease;
+}
+
+.chevronRotated {
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  width: 180px;
+  background-color: #121824; /* bg-surface */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md, 8px);
+  box-shadow: var(--shadow-lg);
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  z-index: 600; /* z-dropdown */
+}
+
+.dropdownHeader {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0.75rem 0.375rem;
+}
+
+.dropdownUser {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-main, #FFFFFF);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdownRole {
+  font-size: var(--font-size-xs);
+  color: var(--brand-gold, #f59e0b);
+  font-weight: 500;
+  margin-top: 0.125rem;
+}
+
+.dropdownDivider {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.06);
+  margin: 0.25rem 0;
+}
+
+.logoutButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  background-color: transparent;
+  border: none;
+  border-radius: var(--radius-sm, 4px);
+  color: #F87171;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: var(--transition-fast, 0.15s);
+}
+
+.logoutButton:hover {
+  background-color: rgba(239, 68, 68, 0.08);
+}
+
+.logoutIcon {
+  color: #F87171;
+}
+
+/* ── Login Button (Guest view) ───────────────────────────── */
+.loginButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  background-color: #1D4ED8; /* primary-usa */
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-md, 8px);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast, 0.15s);
+}
+
+.loginButton:hover {
+  background-color: #1e40af;
+}
+
+/* ── Accessible Focus States ──────────────────────────────── */
+.navLink:focus-visible,
+.brand:focus-visible,
+.loginButton:focus-visible,
+.profileTrigger:focus-visible,
+.logoutButton:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #00F0FF; /* neon color focus ring */
+  border-radius: var(--radius-sm, 4px);
+}
