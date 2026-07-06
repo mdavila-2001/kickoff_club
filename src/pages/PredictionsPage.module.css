@@ -1,0 +1,143 @@
+.pageRoot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-bottom: 6rem;
+}
+
+.pageHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.pageTitle {
+  font-family: var(--font-display);
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-main);
+}
+
+.pageSubtitle {
+  margin-top: 0.25rem;
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+.summaryBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.summaryHeader {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+}
+
+.summaryHeading {
+  font-family: var(--font-display);
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-main);
+}
+
+.summaryCaption {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+.listSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.listHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-main);
+}
+
+.listHeader::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: var(--border-color);
+}
+
+.matchesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-md);
+}
+
+.emptyState {
+  padding: var(--space-lg);
+  text-align: center;
+  font-size: var(--font-size-md);
+  color: var(--text-muted);
+  background-color: var(--bg-surface);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-card);
+}
+
+.skeletonGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-md);
+}
+
+/* ── Floating Action Bar ────────────────────────────────── */
+.fab {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  z-index: var(--z-sticky);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-lg);
+  transform: translate(-50%, 200%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.fabVisible {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.fabText {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.fabCount {
+  color: var(--brand-gold);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
