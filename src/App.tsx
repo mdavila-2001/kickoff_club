@@ -10,6 +10,7 @@ import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { MatchesPage } from './pages/MatchesPage';
+import { PredictionsPage } from './pages/PredictionsPage';
 import { GroupsPage } from './pages/GroupsPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { AdminMatchesPage } from './pages/AdminMatchesPage';
@@ -127,6 +128,7 @@ function App() {
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/matches" element={<MatchesPage />} />
             <Route path="/matches/:id" element={<MatchDetailPage />} />
+            <Route path="/predictions" element={<PredictionsPage />} />
             <Route path="/groups" element={<GroupsPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/admin/matches" element={<AdminMatchesPage />} />

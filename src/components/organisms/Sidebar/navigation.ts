@@ -14,9 +14,7 @@ export const USER_NAVIGATION: readonly NavNode[] = [
   { label: 'Dashboard', path: '/dashboard', icon: 'dashboard' },
   { label: 'Mis Grupos', path: '/groups', icon: 'groups' },
   { label: 'Partidos', path: '/matches', icon: 'calendar' },
-  { label: 'Sedes', path: '/venues', icon: 'venues' },
   { label: 'Mis Pronósticos', path: '/predictions', icon: 'predictions' },
-  { label: 'Clasificación', path: '/rankings', icon: 'ranking' },
   { label: 'Mi Perfil', path: '/profile', icon: 'profile' },
 ];
 

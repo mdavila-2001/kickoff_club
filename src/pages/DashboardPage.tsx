@@ -228,18 +228,6 @@ export const DashboardPage = () => {
             </div>
             <span className={styles.metricSubtext}>Grupos unidos</span>
           </div>
-
-          <div className={`${styles.metricCard} ${styles.borderGreen}`}>
-            <span className={styles.metricLabel}>Clasificación Global</span>
-            <div className={styles.metricValueRow}>
-              <span className={styles.metricValue}>
-                {summary && summary.groupRankings.length > 0 && summary.groupRankings[0].position !== null
-                  ? `#${summary.groupRankings[0].position}`
-                  : '—'}
-              </span>
-            </div>
-            <span className={styles.metricSubtext}>Mejor posición en liga</span>
-          </div>
         </section>
 
         <div className={styles.mainLayout}>
