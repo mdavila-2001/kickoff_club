@@ -16,6 +16,8 @@ export interface PredictionScores {
 export interface MatchFixtureCardProps {
   readonly match: TournamentMatch;
   readonly savedPrediction: PredictionScores | null;
+  /** Puntos calculados por el backend cuando el partido está FINISHED. */
+  readonly pointsEarned: number | null;
   readonly isLocked: boolean;
   /** Al incrementarse, la tarjeta descarta su edición local y re-sincroniza. */
   readonly resetSignal: number;
@@ -58,6 +60,7 @@ export const MatchFixtureCard = memo(
   ({
     match,
     savedPrediction,
+    pointsEarned,
     isLocked,
     resetSignal,
     onPredictionChange,
@@ -129,6 +132,8 @@ export const MatchFixtureCard = memo(
     const homeName = getSpanishCountryName(match.homeTeam);
     const awayName = getSpanishCountryName(match.awayTeam);
     const showRealScore = match.status === 'ONGOING' || match.status === 'FINISHED';
+    const isFinished = match.status === 'FINISHED';
+    const showPointsBadge = isFinished && savedPrediction !== null && pointsEarned !== null;
 
     const renderStatusIndicator = () => {
       if (match.status === 'ONGOING') {
@@ -230,11 +235,25 @@ export const MatchFixtureCard = memo(
             {match.stadium} · {match.city}
           </span>
 
-          {savedPrediction && (
-            <span className={styles.savedChip}>
-              <CheckIcon />
-              Pronóstico guardado
+          {showPointsBadge ? (
+            <span
+              className={[
+                styles.pointsBadge,
+                pointsEarned === 0 ? styles.pointsBadgeZero : '',
+              ]
+                .filter(Boolean)
+                .join(' ')}
+              aria-label={`Puntos obtenidos: ${pointsEarned}`}
+            >
+              +{pointsEarned} PTS
             </span>
+          ) : (
+            savedPrediction && (
+              <span className={styles.savedChip}>
+                <CheckIcon />
+                Pronóstico guardado
+              </span>
+            )
           )}
         </footer>
       </article>

@@ -185,6 +185,29 @@
   font-weight: var(--font-weight-medium);
 }
 
+.pointsBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+  padding: 0.125rem 0.5rem;
+  background-color: rgba(202, 138, 4, 0.12);
+  border: 1px solid var(--brand-gold);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--brand-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-variant-numeric: tabular-nums;
+}
+
+.pointsBadgeZero {
+  border-color: var(--border-color);
+  background-color: rgba(148, 163, 184, 0.08);
+  color: var(--text-muted);
+}
+
 .stadiumThumb {
   width: 1.25rem;
   height: 1.25rem;

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { ChangeEvent } from 'react';
 import { apiClient, ApiError } from '../services/api/apiClient';
 import { API_ROUTES } from '../services/api/routes';
-import { toast } from '../store/useToastStore';
+import { toast, useToastStore } from '../store/useToastStore';
 import { Button } from '../components/atoms/Button/Button';
 import { Skeleton } from '../components/atoms/Skeleton/Skeleton';
 import { SelectField } from '../components/atoms/SelectField/SelectField';
@@ -22,6 +22,9 @@ interface DaySection {
 
 const LOCK_REFRESH_INTERVAL_MS = 30_000;
 const SKELETON_CARD_COUNT = 6;
+const HTTP_KICKOFF_EXPIRED = 403;
+const KICKOFF_EXPIRED_MESSAGE =
+  'Error: El tiempo para apostar en este partido ha expirado';
 
 const STATUS_OPTIONS: readonly SelectOption[] = [
   { value: '', label: 'Todos los estados' },
@@ -240,7 +243,8 @@ export const MatchesPage = () => {
       );
 
       const savedPredictions: UserPrediction[] = [];
-      const failedMatchIds: string[] = [];
+      const retriableMatchIds: string[] = [];
+      const expiredMatchIds: string[] = [];
 
       results.forEach((result, index) => {
         const entry = entries[index];
@@ -248,8 +252,17 @@ export const MatchesPage = () => {
 
         if (result.status === 'fulfilled') {
           savedPredictions.push(result.value);
+          return;
+        }
+
+        const reason = result.reason;
+        const isKickoffExpired =
+          reason instanceof ApiError && reason.status === HTTP_KICKOFF_EXPIRED;
+
+        if (isKickoffExpired) {
+          expiredMatchIds.push(entry[0]);
         } else {
-          failedMatchIds.push(entry[0]);
+          retriableMatchIds.push(entry[0]);
         }
       });
 
@@ -263,10 +276,11 @@ export const MatchesPage = () => {
         });
       }
 
-      // Solo los fallidos permanecen pendientes de guardar.
+      // Los pronósticos rechazados por kickoff expirado se descartan del cache dirty:
+      // el server ya no los aceptará y volverían a fallar en cada retry.
       setDirtyPredictions((prev) => {
         const next: Record<string, PredictionScores> = {};
-        failedMatchIds.forEach((matchId) => {
+        retriableMatchIds.forEach((matchId) => {
           const pending = prev[matchId];
           if (pending) {
             next[matchId] = pending;
@@ -275,13 +289,19 @@ export const MatchesPage = () => {
         return next;
       });
 
-      if (failedMatchIds.length === 0) {
+      if (expiredMatchIds.length > 0) {
+        useToastStore.getState().showToast(KICKOFF_EXPIRED_MESSAGE, 'error');
+      }
+
+      const totalFailed = retriableMatchIds.length + expiredMatchIds.length;
+
+      if (totalFailed === 0) {
         toast.success(`¡Jornada guardada! ${savedPredictions.length} pronóstico(s) registrados.`);
-      } else if (savedPredictions.length > 0) {
+      } else if (savedPredictions.length > 0 && retriableMatchIds.length > 0) {
         toast.warning(
           `Se guardaron ${savedPredictions.length} de ${entries.length} pronósticos. Reintenta los restantes.`
         );
-      } else {
+      } else if (savedPredictions.length === 0 && retriableMatchIds.length > 0) {
         toast.error('No se pudo guardar la jornada. Inténtalo de nuevo.');
       }
     } finally {
@@ -400,6 +420,7 @@ export const MatchesPage = () => {
                         ? { homeScore: saved.predictedHome, awayScore: saved.predictedAway }
                         : null
                     }
+                    pointsEarned={saved ? saved.pointsEarned : null}
                     isLocked={isMatchLocked(match, nowTick)}
                     resetSignal={resetSignal}
                     onPredictionChange={handlePredictionChange}
