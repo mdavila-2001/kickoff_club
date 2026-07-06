@@ -13,12 +13,9 @@ import { MatchesPage } from './pages/MatchesPage';
 import { GroupsPage } from './pages/GroupsPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { AdminMatchesPage } from './pages/AdminMatchesPage';
+import { MatchDetailPage } from './pages/MatchDetailPage';
 import { ToastContainer } from './components/atoms/Toast/ToastContainer';
 
-/**
- * Cascarón privado: monta el Layout con la navegación según el rol
- * real de la sesión y resuelve las páginas anidadas vía <Outlet />.
- */
 const PrivateShell = () => {
   const user = useAuthStore((state) => state.user);
 
@@ -41,10 +38,6 @@ const PrivateShell = () => {
 
 PrivateShell.displayName = 'PrivateShell';
 
-/**
- * Resolución de rutas no reconocidas (404): redirige a /dashboard
- * si hay sesión activa, o a /login en caso contrario.
- */
 const FallbackRedirect = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
@@ -133,6 +126,7 @@ function App() {
           <Route element={<PrivateShell />}>
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/matches" element={<MatchesPage />} />
+            <Route path="/matches/:id" element={<MatchDetailPage />} />
             <Route path="/groups" element={<GroupsPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/admin/matches" element={<AdminMatchesPage />} />

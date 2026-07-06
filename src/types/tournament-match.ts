@@ -14,5 +14,6 @@ export interface TournamentMatch {
   readonly city: string;
   readonly homeTeamBadge: string | null;
   readonly awayTeamBadge: string | null;
+  readonly stadiumImage: string | null;
   readonly updatedAt: string;
 }

@@ -12,7 +12,7 @@ export interface UserRankDTO {
 }
 
 export interface UserRankRowProps extends React.HTMLAttributes<HTMLDivElement> {
-  readonly rank: number;
+  readonly rank: number | null;
   readonly userSnapshot: UserRankDTO;
   readonly rankDelta: number;
   readonly isCurrentUser?: boolean;
@@ -78,7 +78,7 @@ const UserRankRowComponent = ({
       aria-current={isCurrentUser ? 'true' : undefined}
       {...props}
     >
-      <span className={styles.rankNumber}>{rank}</span>
+      <span className={styles.rankNumber}>{rank !== null ? rank : '—'}</span>
 
       <span className={styles.userInfo}>
         <span className={styles.username}>{userSnapshot.username}</span>

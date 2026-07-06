@@ -184,3 +184,22 @@
   color: var(--success);
   font-weight: var(--font-weight-medium);
 }
+
+.stadiumThumb {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  border: 1px solid var(--border-color);
+  margin-right: 0.125rem;
+  transition: transform var(--transition-fast);
+}
+
+.stadiumThumb:hover {
+  transform: scale(3.5);
+  position: relative;
+  z-index: 10;
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-usa);
+}
+

@@ -15,4 +15,6 @@ export interface GroupParticipant {
   readonly userId: string;
   readonly accumulatedPoints: number;
   readonly user?: UserProfile;
+  readonly predictionsMade?: number;
+  readonly exactHits?: number;
 }

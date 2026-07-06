@@ -99,8 +99,8 @@ export const GroupsPage: React.FC = () => {
           userId: p.userId,
           rank: index + 1,
           username: p.user?.username ?? 'Usuario',
-          predictionsMade: 0, // Mocked as not returned by the API
-          exactHits: 0, // Mocked as not returned by the API
+          predictionsMade: p.predictionsMade ?? 0,
+          exactHits: p.exactHits ?? 0,
           points: p.accumulatedPoints,
         }));
         

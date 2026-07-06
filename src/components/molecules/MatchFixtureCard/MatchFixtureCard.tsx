@@ -1,5 +1,6 @@
 import { memo, useState } from 'react';
 import type { ChangeEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Flag } from '../../atoms/Flag/Flag';
 import { Badge } from '../../atoms/Badge/Badge';
 import { getFifaCode, getFlagUrl } from '../../../services/teamCodes';
@@ -62,12 +63,26 @@ export const MatchFixtureCard = memo(
     onPredictionChange,
     onPredictionInvalidate,
   }: MatchFixtureCardProps) => {
+    const navigate = useNavigate();
     const [homeValue, setHomeValue] = useState<string>(
       savedPrediction ? String(savedPrediction.homeScore) : ''
     );
     const [awayValue, setAwayValue] = useState<string>(
       savedPrediction ? String(savedPrediction.awayScore) : ''
     );
+
+    const handleCardClick = (e: React.MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.tagName === 'INPUT' ||
+        target.tagName === 'BUTTON' ||
+        target.closest('button') ||
+        target.closest('input')
+      ) {
+        return;
+      }
+      navigate(`/matches/${match.id}`);
+    };
 
     const savedKey =
       savedPrediction === null
@@ -128,6 +143,8 @@ export const MatchFixtureCard = memo(
     return (
       <article
         className={[styles.card, isLocked ? styles.cardLocked : ''].filter(Boolean).join(' ')}
+        onClick={handleCardClick}
+        style={{ cursor: 'pointer' }}
         aria-label={`Partido de ${homeName} contra ${awayName}`}
       >
         {isLocked && (
@@ -203,6 +220,13 @@ export const MatchFixtureCard = memo(
         <footer className={styles.cardFooter}>
           <span className={styles.venue}>
             <PinIcon />
+            {match.stadiumImage && (
+              <img
+                src={match.stadiumImage}
+                alt={match.stadium}
+                className={styles.stadiumThumb}
+              />
+            )}
             {match.stadium} · {match.city}
           </span>
 

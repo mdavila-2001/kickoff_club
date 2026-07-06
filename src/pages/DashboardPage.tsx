@@ -22,8 +22,11 @@ import { InputField } from '../components/atoms/InputField/InputField';
 interface GroupRanking {
   readonly groupId: string;
   readonly groupName: string;
-  readonly position: number;
+  readonly position: number | null;
   readonly accumulatedPoints: number;
+  readonly exactPredictionsCount: number;
+  readonly efficiencyRate: number;
+  readonly rankDelta: number;
 }
 
 interface DashboardSummary {
@@ -230,7 +233,7 @@ export const DashboardPage = () => {
             <span className={styles.metricLabel}>Clasificación Global</span>
             <div className={styles.metricValueRow}>
               <span className={styles.metricValue}>
-                {summary && summary.groupRankings.length > 0
+                {summary && summary.groupRankings.length > 0 && summary.groupRankings[0].position !== null
                   ? `#${summary.groupRankings[0].position}`
                   : '—'}
               </span>
@@ -302,26 +305,20 @@ export const DashboardPage = () => {
             <div className={styles.leaguesCard}>
               {summary && summary.groupRankings.length > 0 ? (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-sm)' }}>
-                  {summary.groupRankings.map((ranking, index) => {
-                    let deltaVal = 0;
-                    if (index % 3 === 0) {
-                      deltaVal = 1;
-                    } else if (index % 3 === 1) {
-                      deltaVal = -1;
-                    }
+                  {summary.groupRankings.map((ranking) => {
                     const userSnapshot = {
                       id: ranking.groupId,
                       username: ranking.groupName,
                       totalPoints: ranking.accumulatedPoints,
-                      exactPredictionsCount: 3,
-                      efficiencyRate: 75,
+                      exactPredictionsCount: ranking.exactPredictionsCount ?? 0,
+                      efficiencyRate: ranking.efficiencyRate ?? 0,
                     };
                     return (
                       <UserRankRow
                         key={ranking.groupId}
                         rank={ranking.position}
                         userSnapshot={userSnapshot}
-                        rankDelta={deltaVal}
+                        rankDelta={ranking.rankDelta ?? 0}
                         isCurrentUser={true}
                       />
                     );

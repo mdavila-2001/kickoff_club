@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import { Skeleton } from '../../atoms/Skeleton/Skeleton';
 import { CountdownTimer } from '../../atoms/CountdownTimer/CountdownTimer';
@@ -52,11 +53,25 @@ export const MatchCard = React.memo(({
   className = '',
   ...props
 }: MatchCardProps) => {
+  const navigate = useNavigate();
   const [homePred, setHomePred] = useState<string>('');
   const [awayPred, setAwayPred] = useState<string>('');
   const [homeError, setHomeError] = useState(false);
   const [awayError, setAwayError] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+
+  const handleCardClick = (e: React.MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (
+      target.tagName === 'INPUT' ||
+      target.tagName === 'BUTTON' ||
+      target.closest('button') ||
+      target.closest('input')
+    ) {
+      return;
+    }
+    navigate(`/matches/${match.id}`);
+  };
 
   useEffect(() => {
     if (initialPrediction) {
@@ -265,6 +280,8 @@ export const MatchCard = React.memo(({
   return (
     <section
       className={`${styles.cardContainer} ${className}`}
+      onClick={handleCardClick}
+      style={{ cursor: 'pointer' }}
       aria-label={`Partido de ${match.homeTeam.name} contra ${match.awayTeam.name}`}
       {...props}
     >
